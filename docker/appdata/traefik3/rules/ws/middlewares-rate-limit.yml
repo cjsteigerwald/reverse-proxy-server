@@ -1,0 +1,8 @@
+# Ensures that services are not overrun with requests indicating security
+# breach or DDoS attack
+http:
+  middlewares:
+    middlewares-rate-limit:
+      rateLimit:
+        average: 100
+        burst: 50

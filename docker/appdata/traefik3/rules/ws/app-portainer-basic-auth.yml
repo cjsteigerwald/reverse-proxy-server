@@ -1,0 +1,20 @@
+# Routing to homeserver
+http:
+  routers:
+    sportainer-rtr:
+      rule: "Host(`portainer.{{env DOMAINNAME_1}}`)"
+      entryPoints:
+        - websecure
+      middlewares:
+        - middlewares-basic-auth
+        - middlewares-rate-limit
+        - middlewares-secure-headers
+      service: sportainer-svc
+      tls:
+        certResolver: dns-cloudflare
+        options: tls-opts@file
+  services:
+    sportainer-svc:
+      loadBalancer:
+        servers:
+          - url: "http://{{env HOME_SERVER_IP}}:9000"

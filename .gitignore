@@ -1,0 +1,6 @@
+**/*.log
+**/secrets
+**/*.env
+**/*.secret
+**/acme.json
+

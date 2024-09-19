@@ -1,0 +1,8 @@
+# Simply chaining rules to simply traefic.yml
+http:
+  middlewares:
+    chain-no-auth:
+      chain:
+        middlewares:
+          - middlewares-rate-limit
+          - middlewares-secure-headers

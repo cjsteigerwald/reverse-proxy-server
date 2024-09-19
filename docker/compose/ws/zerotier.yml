@@ -1,0 +1,25 @@
+services:
+  zerotier:
+    image: zerotier/zerotier
+    container_name: zerotier-one
+    devices:
+      - /dev/net/tun
+    network_mode: host
+    command: $ZERO_TIER_NETWORK_ID
+    volumes:
+      - $DOCKERDIR/appdata/zerotier:/var/lib/zerotier-one
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - NET_RAW
+    restart: unless-stopped
+    secrets: 
+      - zero_tier_network_id
+    environment:
+      - TZ=$TZ
+      - PUID=$PUID
+      - PGID=$PGID
+      - ZEROTIER_ONE_LOCAL_PHYS=eth0
+      - ZEROTIER_ONE_USE_IPTABLES_NFT=false
+      - ZEROTIER_ONE_GATEWAY_MODE=inbound
+      - ZEROTIER_ONE_NETWORK_IDS=/run/secrets/zero_tier_network_id
